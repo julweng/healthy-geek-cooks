@@ -686,7 +686,7 @@ function handleSubmitEditClick() {
           instructions,
           author,
       	}), createSuccess(`update request received`));
-        //window.location.href="/recipes.html";
+        window.location.href="/recipes.html";
       }
   })
 }
