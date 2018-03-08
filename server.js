@@ -193,25 +193,28 @@ app.post('/recipes/post', (req, res) => {
     });
 });
 
+// put by recipe id
+function getRecipe(id){
+   let recipe = Recipe.find({_id:id});
+   return recipe;
+}
 app.put('/recipes/:id', (req, res) => {
-  if(!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-    const message = `Bad Request: Request path id (${req.params.id}) and request body id (${req.body.id}) must match`;
-    console.error(message);
-    return res.status(400).json({message: message});
-  }
-
-  const toUpdate = {};
-  const updateableFields = ['name', 'type', 'ingredients', 'supplies','instructions', 'author', 'series', 'prepTime', 'cookTime', 'serving', 'publishDate', 'img'];
-
-  updateableFields.forEach(field => {
-    if(field in req.body) {
-      toUpdate[field] = req.body[field];
+  Recipe.findByIdAndUpdate(
+    // the id of the item to find
+    req.params.id,
+    // the change to be made. Mongoose will smartly combine your existing
+    // document with this change, which allows for partial updates too
+    req.body,
+    // an option that asks mongoose to return the updated version
+    // of the document instead of the pre-updated one.
+    {new: true},
+    // the callback function
+    (err, recipe) => {
+    // Handle any possible database errors
+        if (err) return res.status(500).send(err);
+        return res.send(recipe);
     }
-  });
-
-  Recipe.findOneAndUpdate(ObjectId(req.params.id), {$set: {toUpdate}}, {returnOriginal:false})
-    .then(recipe => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'Internal Server Error'}));
+  )
 });
 
 // delete by id
