@@ -294,7 +294,7 @@ function handleCancelCreateClick(selector) {
 /****** handle file upload *******/
 function fileUpload() {
   $('#fileupload').fileupload({
-    url: 'http://localhost:8080/upload',
+    url: 'https://healthy-geek-cooks-app.herokuapp.com/upload',
     dataType: 'json',
     add: function(e, data) {
         let uploadErrors = [];
