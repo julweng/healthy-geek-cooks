@@ -161,7 +161,7 @@ function handleLogInSubmit() {
 	})
 }
 
-$(function() {
+$(function() { 
 	$("#cross").hide();
 	$("#smallscreen-nav").hide();
   handleLogInClick();

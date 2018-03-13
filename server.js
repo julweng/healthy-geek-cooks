@@ -41,6 +41,12 @@ app.use(function (req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
+/*
+app.get('/baseUrl', function(req, res) {
+  res.send({ baseUrl: 'localhost:8080'})
+});
+*/
+
 /// Redirect all to home except post
 app.get('/upload', function( req, res ){
 	res.redirect('/');
